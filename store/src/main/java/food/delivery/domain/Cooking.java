@@ -46,26 +46,26 @@ public class Cooking {
 
     public void accept(AcceptCommand acceptCommand) {
         if(acceptCommand.getAccept()){
+            setStatus("주문수락");
             OrderAccepted orderAccepted = new OrderAccepted(this);
             orderAccepted.publishAfterCommit();
-            setStatus("주문수락");
         }else{
+            setStatus("주문거절");
             OrderRejected orderRejected = new OrderRejected(this);
             orderRejected.publishAfterCommit();
-            setStatus("주문거절");
         }
     }
 
     public void startCooking() {
+        setStatus("조리시작");
         CookingStarted cookingStarted = new CookingStarted(this);
         cookingStarted.publishAfterCommit();
-        setStatus("조리시작");
     }
     
     public void finishCooking() {
+        setStatus("조리완료");
         CookingFinished cookingFinished = new CookingFinished(this);
         cookingFinished.publishAfterCommit();
-        setStatus("조리완료");
     }
 
     public static void updateStatus(Paid paid) {

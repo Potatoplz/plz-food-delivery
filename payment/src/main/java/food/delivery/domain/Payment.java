@@ -34,14 +34,17 @@ public class Payment {
     }
 
     public void pay() {
+        setStatus("결제완료");
         Paid paid = new Paid(this);
-    //    paid.setStatus("결제완료");
-
-        repository().findByOrderId(paid.getId()).ifPresent(payment->{
-            payment.setStatus("결제완료");
-            repository().save(payment);
-         });
         paid.publishAfterCommit();
+        // Paid paid = new Paid(this);
+        // paid.setStatus("결제완료");
+
+        // repository().findByOrderId(paid.getId()).ifPresent(payment->{
+        //     payment.setStatus("결제완료");
+        //     repository().save(payment);
+        //  });
+        // paid.publishAfterCommit();
     }
 
     public static void updateStatus(OrderPlaced orderPlaced) {

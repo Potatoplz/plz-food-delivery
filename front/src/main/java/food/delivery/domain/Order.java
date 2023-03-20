@@ -29,6 +29,7 @@ public class Order {
 
     @PostPersist
     public void onPostPersist() {
+        setStatus("주문접수");
         OrderPlaced orderPlaced = new OrderPlaced(this);
         orderPlaced.publishAfterCommit();
     }

@@ -36,15 +36,15 @@ public class Delivery {
     }
 
     public void pickUp() {
+        setStatus("배달시작");
         Picked picked = new Picked(this);
         picked.publishAfterCommit();
-        setStatus("배달시작");
     }
     
     public void confirmDelivery() {
+        setStatus("배달완료");
         DeliveryCompleted deliveryCompleted = new DeliveryCompleted(this);
         deliveryCompleted.publishAfterCommit();
-        setStatus("배달완료");
     }
 
     public static void updateStatus(CookingFinished cookingFinished) {
