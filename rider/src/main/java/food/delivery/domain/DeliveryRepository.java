@@ -1,6 +1,9 @@
 package food.delivery.domain;
 
 import food.delivery.domain.*;
+
+import java.util.Optional;
+
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
@@ -9,4 +12,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
     path = "deliveries"
 )
 public interface DeliveryRepository
-    extends PagingAndSortingRepository<Delivery, Long> {}
+    extends PagingAndSortingRepository<Delivery, Long> {
+        Optional<Delivery> findByOrderId(Long orderId);
+    }

@@ -35,15 +35,24 @@ public class Payment {
 
     public void pay() {
         Paid paid = new Paid(this);
+    //    paid.setStatus("결제완료");
+
+        repository().findByOrderId(paid.getId()).ifPresent(payment->{
+            payment.setStatus("결제완료");
+            repository().save(payment);
+         });
         paid.publishAfterCommit();
     }
 
     public static void updateStatus(OrderPlaced orderPlaced) {
-        /** Example 1:  new item 
-        Payment payment = new Payment();
-        repository().save(payment);
-
-        */
+        /** Example 1:  new item  */
+            Payment payment = new Payment();
+            payment.setOrderId(orderPlaced.getId());
+            payment.setCustomerId(orderPlaced.getCustomerId());
+            payment.setStoreId(orderPlaced.getStoreId());
+            payment.setStatus("결제대기");
+            repository().save(payment);
+       
 
         /** Example 2:  finding and process
         

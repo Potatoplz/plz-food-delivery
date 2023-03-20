@@ -25,8 +25,8 @@ public class Delivery {
 
     private String storeId;
 
-    @PostPersist
-    public void onPostPersist() {}
+    // @PostPersist
+    // public void onPostPersist() {}
 
     public static DeliveryRepository repository() {
         DeliveryRepository deliveryRepository = RiderApplication.applicationContext.getBean(
@@ -38,11 +38,13 @@ public class Delivery {
     public void pickUp() {
         Picked picked = new Picked(this);
         picked.publishAfterCommit();
+        setStatus("배달시작");
     }
-
+    
     public void confirmDelivery() {
         DeliveryCompleted deliveryCompleted = new DeliveryCompleted(this);
         deliveryCompleted.publishAfterCommit();
+        setStatus("배달완료");
     }
 
     public static void updateStatus(CookingFinished cookingFinished) {
@@ -52,25 +54,27 @@ public class Delivery {
 
         */
 
-        /** Example 2:  finding and process
+        /** Example 2:  finding and process */
         
-        repository().findById(cookingFinished.get???()).ifPresent(delivery->{
-            
-            delivery // do something
+        repository().findByOrderId(cookingFinished.getOrderId()).ifPresent(delivery->{
+            delivery.setStatus("조리완료");
             repository().save(delivery);
-
-
-         });
-        */
+        });
+        
 
     }
 
     public static void copyOrder(OrderPlaced orderPlaced) {
-        /** Example 1:  new item 
+        /** Example 1:  new item */
+         
         Delivery delivery = new Delivery();
+        delivery.setOrderId(orderPlaced.getId());
+        delivery.setStoreId(orderPlaced.getStoreId());
+        delivery.setCustomerId(orderPlaced.getCustomerId());
+        delivery.setAddress(orderPlaced.getAddress());
+        delivery.setStatus("결제완료");
         repository().save(delivery);
 
-        */
 
         /** Example 2:  finding and process
         
@@ -78,7 +82,6 @@ public class Delivery {
             
             delivery // do something
             repository().save(delivery);
-
 
          });
         */

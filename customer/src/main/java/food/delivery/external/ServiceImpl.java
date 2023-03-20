@@ -1,16 +1,16 @@
-package food.delivery.external;
+// package food.delivery.external;
 
-import org.springframework.stereotype.Service;
+// import org.springframework.stereotype.Service;
 
-@Service
-public class ServiceImpl implements Service {
+// @Service
+// public class ServiceImpl implements Service {
 
 
-    /**
-     * Fallback
-     */
-    public  get(Long id) {
-          = new ();
-        return ;
-    }
-}
+//     /**
+//      * Fallback
+//      */
+//     public  get(Long id) {
+//           = new ();
+//         return ;
+//     }
+// }
